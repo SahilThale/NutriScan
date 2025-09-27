@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>NutriScan - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #8fd694;
+            font-family: 'VT323', monospace;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        .window {
+            background: #f4f4e6;
+            border: 3px solid #222;
+            border-radius: 12px 12px 8px 8px;
+            width: 600px; /* Increased from 420px to 600px */
+            max-width: 98vw;
+            margin: 40px auto 0 auto;
+            box-shadow: 8px 8px 0 #222;
+            position: relative;
+        }
+        .window-header {
+            background: #e0e0d1;
+            border-bottom: 2px solid #222;
+            border-radius: 10px 10px 0 0;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .window-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .window-controls {
+            display: flex;
+            gap: 0.4rem;
+        }
+        .window-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #222;
+            display: inline-block;
+        }
+        .window-dot.red { background: #ff5f56; }
+        .window-dot.yellow { background: #ffbd2e; }
+        .window-dot.green { background: #27c93f; }
+        nav {
+            background: #d6d6c2;
+            border-bottom: 2px solid #222;
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.3rem;
+            flex-wrap: wrap;
+        }
+        nav a, nav span {
+            color: #222;
+            text-decoration: none;
+            margin-right: 1.2rem;
+            transition: color 0.2s;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+        nav a:hover {
+            background: #b2b2a3;
+            color: #fff;
+        }
+        nav strong {
+            color: #4e7d4e;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+        }
+        .content-section {
+            padding: 2.2rem 2rem 2rem 2rem;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            letter-spacing: 2px;
+            color: #222;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+            margin: 0 auto;
+            max-width: 320px;
+            background: #e0e0d1;
+            border: 2px solid #222;
+            border-radius: 10px;
+            padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+            box-shadow: 3px 3px 0 #4e7d4e;
+        }
+        label {
+            font-size: 1.1rem;
+            color: #222;
+            margin-bottom: 0.2rem;
+        }
+        input[type="email"], input[type="password"] {
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            padding: 0.5rem 0.7rem;
+            border: 2px solid #222;
+            border-radius: 6px;
+            background: #fff;
+            color: #222;
+            outline: none;
+            transition: border 0.2s;
+        }
+        input[type="email"]:focus, input[type="password"]:focus {
+            border: 2px solid #4e7d4e;
+        }
+        button[type="submit"] {
+            background: #222;
+            color: #fff;
+            border: 2px solid #222;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 2px 2px 0 #4e7d4e;
+            transition: background 0.2s, color 0.2s, transform 0.1s;
+        }
+        button[type="submit"]:hover {
+            background: #4e7d4e;
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .flashes {
+            list-style: none;
+            padding: 0;
+            margin: 1.2rem 0 0.5rem 0;
+            text-align: center;
+        }
+        .flashes li {
+            display: inline-block;
+            margin: 0.2rem 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            border: 2px solid #222;
+            background: #ffefc2;
+            color: #b25c00;
+        }
+        .flashes li.error, .flashes li.danger {
+            background: #ffb3b3;
+            color: #a10000;
+            border-color: #a10000;
+        }
+        .flashes li.success {
+            background: #b3ffb3;
+            color: #1a7d1a;
+            border-color: #1a7d1a;
+        }
+        .already-logged {
+            text-align: center;
+            margin: 1.5rem 0 0 0;
+            font-size: 1.1rem;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 1.1rem;
+        }
+        .register-link a {
+            color: #4e7d4e;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .register-link a:hover {
+            color: #222;
+        }
+        @media (max-width: 600px) {
+            .window { width: 99vw; }
+            .content-section { padding: 1.2rem 0.5rem 1.2rem 0.5rem; }
+            form { max-width: 98vw; }
+            nav { flex-direction: column; gap: 0.5rem; }
+        }
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 1.1rem 0 0.5rem 0;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            border-radius: 0 0 12px 12px;
+            border-top: 2px solid #4e7d4e;
+        }
+        .footer-dev {
+            color: #8fd694;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="window-header">
+            <div class="window-controls">
+                <span class="window-dot red"></span>
+                <span class="window-dot yellow"></span>
+                <span class="window-dot green"></span>
+            </div>
+            <div class="window-title">NutriScan</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <!-- Navbar -->
+        <nav>
+            <a href="{{ url_for('index') }}"><strong>NutriScan</strong></a>
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if session.get('user_id') %}
+                <!-- <span>Hello, {{ session.get('username') }}</span> -->
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </nav>
+        <div class="content-section">
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <ul class="flashes">
+                  {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+
+            <h2>Login</h2>
+
+            {% if session.get('user_id') %}
+                <div class="already-logged">
+                    You are already logged in as <strong>{{ session.get('username') }}</strong>.<br>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            {% else %}
+                <form method="POST" action="{{ url_for('login') }}">
+                    <div>
+                        <label for="email">Email:</label><br>
+                        <input id="email" type="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="password">Password:</label><br>
+                        <input id="password" type="password" name="password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <div class="register-link">
+                    Don't have an account? <a href="{{ url_for('register') }}">Register here</a>.
+                </div>
+            {% endif %}
+        </div>
+        <footer>
+            NutriScan &copy; {{ 2024 }}<br>
+            <span class="footer-dev">Developed by Vishal Fukat</span>
+        </footer>
+    </div>
+</body>
+</html>

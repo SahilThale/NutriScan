@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>NutriScan - Analyze</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #8fd694;
+            font-family: 'VT323', monospace;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        .window {
+            background: #f4f4e6;
+            border: 3px solid #222;
+            border-radius: 12px 12px 8px 8px;
+            width: 900px;
+            max-width: 98vw;
+            margin: 40px auto 0 auto;
+            box-shadow: 8px 8px 0 #222;
+            position: relative;
+        }
+        .window-header {
+            background: #e0e0d1;
+            border-bottom: 2px solid #222;
+            border-radius: 10px 10px 0 0;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .window-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .window-controls {
+            display: flex;
+            gap: 0.4rem;
+        }
+        .window-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #222;
+            display: inline-block;
+        }
+        .window-dot.red { background: #ff5f56; }
+        .window-dot.yellow { background: #ffbd2e; }
+        .window-dot.green { background: #27c93f; }
+        nav {
+            background: #d6d6c2;
+            border-bottom: 2px solid #222;
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.3rem;
+        }
+        nav a, nav span {
+            color: #222;
+            text-decoration: none;
+            margin-right: 1.2rem;
+            transition: color 0.2s;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+        nav a:hover {
+            background: #b2b2a3;
+            color: #fff;
+        }
+        nav strong {
+            color: #4e7d4e;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+        }
+        .analyze-section {
+            padding: 2.5rem 2rem 2rem 2rem;
+        }
+        .analyze-title {
+            font-size: 2rem;
+            color: #222;
+            margin-bottom: 1.2rem;
+            letter-spacing: 2px;
+        }
+        .analyze-form {
+            background: #e0e0d1;
+            border: 2px solid #222;
+            border-radius: 12px;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            max-width: 500px;
+            margin: 0 auto 2.5rem auto;
+            box-shadow: 4px 4px 0 #4e7d4e;
+        }
+        .analyze-form label {
+            font-size: 1.1rem;
+            color: #222;
+        }
+        .analyze-form select,
+        .analyze-form input[type="file"] {
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            margin-top: 0.3rem;
+            margin-bottom: 1.2rem;
+            width: 100%;
+            padding: 0.4rem;
+            border-radius: 6px;
+            border: 1.5px solid #4e7d4e;
+            background: #fff;
+        }
+        .analyze-form button {
+            background: #222;
+            color: #fff;
+            border: 2px solid #222;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            padding: 0.7rem 2.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 #4e7d4e;
+            transition: background 0.2s, color 0.2s, transform 0.1s;
+        }
+        .analyze-form button:hover {
+            background: #4e7d4e;
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .result-section {
+            margin-top: 2.5rem;
+            border: 2px solid #222;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background-color: #e0e0d1;
+            box-shadow: 4px 4px 0 #4e7d4e;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .result-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 2.2rem;
+        }
+        .result-content img {
+            max-width: 250px;
+            border-radius: 8px;
+            border: 2px solid #222;
+            background: #fff;
+            box-shadow: 2px 2px 0 #4e7d4e;
+        }
+        .result-text {
+            flex: 1;
+            white-space: pre-wrap;
+            font-size: 1.15rem;
+            color: #222;
+        }
+        @media (max-width: 900px) {
+            .window { width: 99vw; }
+            .analyze-section { padding: 1.2rem 0.5rem 1.2rem 0.5rem; }
+            .analyze-form { max-width: 99vw; }
+            .result-section { max-width: 99vw; }
+            .result-content { flex-direction: column; gap: 1.2rem; }
+        }
+        /* Footer */
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 1.1rem 0 0.5rem 0;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            border-radius: 0 0 12px 12px;
+            border-top: 2px solid #4e7d4e;
+        }
+        .footer-dev {
+            color: #8fd694;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="window-header">
+            <div class="window-controls">
+                <span class="window-dot red"></span>
+                <span class="window-dot yellow"></span>
+                <span class="window-dot green"></span>
+            </div>
+            <div class="window-title">NutriScan</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <!-- Navbar -->
+        <nav>
+            <a href="{{ url_for('index') }}"><strong>NutriScan</strong></a>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('analyze') }}">Analyze</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('custom_request') }}">Custom Request</a>
+        </nav>
+
+        <section class="analyze-section">
+            <div class="analyze-title">Analyze a Product</div>
+            <!-- Upload Form -->
+            <form class="analyze-form" method="POST" enctype="multipart/form-data">
+                <label for="category">Select Category:</label><br>
+                <select id="category" name="category" required>
+                    <option value="chips">Chips</option>
+                    <option value="coldrinks">Cold Drinks</option>
+                    <option value="chocolate">Chocolate</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="others">Others</option>
+                </select>
+                <br>
+
+                <label for="image">Upload Product Image:</label><br>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <br>
+
+                <button type="submit">Analyze</button>
+            </form>
+
+            <!-- Analysis Result -->
+            {% if result %}
+                <div class="result-section">
+                    <h3 style="margin-top:0;">Analysis Result:</h3>
+                    <div class="result-content">
+                        {% if filename %}
+                            <img src="{{ url_for('static', filename='uploads/' ~ filename) }}" alt="Uploaded Product">
+                        {% endif %}
+                        <div class="result-text">
+                            <p>{{ result }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            NutriScan &copy; {{ 2024 }}<br>
+            <span class="footer-dev">Developed by Vishal Fukat</span>
+        </footer>
+    </div>
+</body>
+</html>

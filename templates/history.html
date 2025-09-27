@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>NutriScan - History</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #8fd694;
+            font-family: 'VT323', monospace;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        .window {
+            background: #f4f4e6;
+            border: 3px solid #222;
+            border-radius: 12px 12px 8px 8px;
+            width: 900px;
+            max-width: 98vw;
+            margin: 40px auto 0 auto;
+            box-shadow: 8px 8px 0 #222;
+            position: relative;
+        }
+        .window-header {
+            background: #e0e0d1;
+            border-bottom: 2px solid #222;
+            border-radius: 10px 10px 0 0;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .window-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .window-controls {
+            display: flex;
+            gap: 0.4rem;
+        }
+        .window-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #222;
+            display: inline-block;
+        }
+        .window-dot.red { background: #ff5f56; }
+        .window-dot.yellow { background: #ffbd2e; }
+        .window-dot.green { background: #27c93f; }
+        nav {
+            background: #d6d6c2;
+            border-bottom: 2px solid #222;
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.3rem;
+            flex-wrap: wrap;
+        }
+        nav a, nav span {
+            color: #222;
+            text-decoration: none;
+            margin-right: 1.2rem;
+            transition: color 0.2s;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+        nav a:hover {
+            background: #b2b2a3;
+            color: #fff;
+        }
+        nav strong {
+            color: #4e7d4e;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+        }
+        .content-section {
+            padding: 2.2rem 2.2rem 2.2rem 2.2rem;
+        }
+        .history-header {
+            font-size: 2rem;
+            color: #222;
+            margin-bottom: 1.2rem;
+            letter-spacing: 2px;
+        }
+        .history-links {
+            margin-bottom: 2.2rem;
+            font-size: 1.15rem;
+        }
+        .history-links a {
+            background: #e0e0d1;
+            color: #222;
+            border: 2px solid #222;
+            border-radius: 8px;
+            padding: 0.4rem 1.1rem;
+            margin-right: 0.7rem;
+            text-decoration: none;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            transition: background 0.2s, color 0.2s, transform 0.1s;
+            box-shadow: 2px 2px 0 #4e7d4e;
+        }
+        .history-links a:hover {
+            background: #4e7d4e;
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .history-table-section {
+            margin-bottom: 2.5rem;
+        }
+        h3 {
+            font-size: 1.3rem;
+            color: #4e7d4e;
+            margin-bottom: 0.7rem;
+            letter-spacing: 1px;
+        }
+        /* Card (cart) styles */
+        .history-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .history-card {
+            background: #fff;
+            border: 2px solid #222;
+            border-radius: 12px;
+            box-shadow: 2px 2px 0 #b2b2a3;
+            width: 320px;
+            max-width: 98vw;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 1.1rem 1.2rem 1.1rem 1.2rem;
+            position: relative;
+            min-height: 210px;
+        }
+        .history-card .card-image {
+            align-self: center;
+            margin-bottom: 0.7rem;
+        }
+        .history-card img {
+            border-radius: 8px;
+            border: 1.5px solid #4e7d4e;
+            background: #f4f4e6;
+            box-shadow: 1px 1px 0 #b2b2a3;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+        .history-card .card-label {
+            font-weight: bold;
+            color: #4e7d4e;
+            margin-bottom: 0.2rem;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .history-card .card-value {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            word-break: break-word;
+            max-width: 100%;
+        }
+        .history-card .card-timestamp {
+            color: #888;
+            font-size: 0.98rem;
+            margin-bottom: 0.7rem;
+        }
+        .history-card .delete-btn {
+            background: #ff5f56;
+            color: #222;
+            border: 2px solid #222;
+            border-radius: 6px;
+            padding: 0.3rem 0.9rem;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.1s;
+            box-shadow: 1px 1px 0 #b2b2a3;
+            align-self: flex-end;
+        }
+        .history-card .delete-btn:hover {
+            background: #222;
+            color: #fff;
+            transform: translateY(-1px) scale(1.04);
+        }
+        .no-history {
+            color: #888;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 1100px) {
+            .window { width: 99vw; }
+            .content-section { padding: 1.2rem 0.5rem 1.2rem 0.5rem; }
+            .history-cards { gap: 1rem; }
+            .history-card { width: 98vw; max-width: 99vw; }
+        }
+        @media (max-width: 700px) {
+            .window { width: 100vw; }
+            .content-section { padding: 0.5rem; }
+            .history-header { font-size: 1.3rem; }
+            .history-cards { flex-direction: column; gap: 0.7rem; }
+            .history-card { width: 98vw; max-width: 99vw; }
+        }
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 1.1rem 0 0.5rem 0;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            border-radius: 0 0 12px 12px;
+            border-top: 2px solid #4e7d4e;
+        }
+        .footer-dev {
+            color: #8fd694;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="window-header">
+            <div class="window-controls">
+                <span class="window-dot red"></span>
+                <span class="window-dot yellow"></span>
+                <span class="window-dot green"></span>
+            </div>
+            <div class="window-title">NutriScan</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <!-- Navbar -->
+        <nav>
+            <a href="{{ url_for('index') }}"><strong>NutriScan</strong></a>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('analyze') }}">Analyze</a>
+            <a href="{{ url_for('custom_request') }}">Custom Request</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+        <div class="content-section">
+            <div class="history-header">
+                Welcome, {{ username }} <span style="font-size:1.1rem;">| Your History</span>
+            </div>
+            <div class="history-links">
+                <a href="{{ url_for('analyze') }}">🔍 Analyze Again</a>
+                <a href="{{ url_for('custom_request') }}">💬 Custom Request</a>
+                <a href="{{ url_for('logout') }}">🚪 Logout</a>
+            </div>
+
+            <!-- Normal Analyze History -->
+            <div class="history-table-section">
+                <h3>🔍 Analyze History</h3>
+                {% if history %}
+                    <div class="history-cards">
+                        {% for item in history %}
+                        <div class="history-card">
+                            <div class="card-label">Category</div>
+                            <div class="card-value">{{ item.category }}</div>
+                            <div class="card-label">Image</div>
+                            <div class="card-image">
+                                {% if item.filename %}
+                                    <img src="{{ url_for('static', filename='uploads/' ~ item.filename) }}" alt="Image">
+                                {% else %}
+                                    <span style="color:#888;">No image</span>
+                                {% endif %}
+                            </div>
+                            <div class="card-label">Result</div>
+                            <div class="card-value" style="max-width:300px;">{{ item.result }}</div>
+                            <div class="card-label">Timestamp</div>
+                            <div class="card-timestamp">{{ item.timestamp }}</div>
+                            <form action="{{ url_for('delete_history', history_id=item.id) }}" method="post" style="display:inline;">
+                                <button type="submit" class="delete-btn" onclick="return confirm('Delete this history?');">❌ Delete</button>
+                            </form>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-history">No analyze history found.</div>
+                {% endif %}
+            </div>
+
+            <!-- Custom Requests History -->
+            <div class="history-table-section">
+                <h3>💬 Custom Requests History</h3>
+                {% if custom_history %}
+                    <div class="history-cards">
+                        {% for item in custom_history %}
+                        <div class="history-card">
+                            <div class="card-label">Prompt</div>
+                            <div class="card-value" style="max-width:220px;">{{ item.prompt }}</div>
+                            <div class="card-label">Image</div>
+                            <div class="card-image">
+                                {% if item.filename %}
+                                    <img src="{{ url_for('static', filename='uploads/' ~ item.filename) }}" alt="Image">
+                                {% else %}
+                                    <span style="color:#888;">No image</span>
+                                {% endif %}
+                            </div>
+                            <div class="card-label">Result</div>
+                            <div class="card-value" style="max-width:300px;">{{ item.result }}</div>
+                            <div class="card-label">Timestamp</div>
+                            <div class="card-timestamp">{{ item.timestamp }}</div>
+                            <form action="{{ url_for('delete_custom_history', custom_id=item.id) }}" method="post" style="display:inline;">
+                                <button type="submit" class="delete-btn" onclick="return confirm('Delete this custom request?');">❌ Delete</button>
+                            </form>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-history">No custom requests found.</div>
+                {% endif %}
+            </div>
+        </div>
+        <footer>
+            NutriScan &copy; {{ 2024 }}<br>
+            <span class="footer-dev">Developed by Vishal Fukat</span>
+        </footer>
+    </div>
+</body>
+</html>

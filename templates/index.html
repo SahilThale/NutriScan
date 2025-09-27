@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>NutriScan - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #8fd694;
+            font-family: 'VT323', monospace;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        /* Window Frame */
+        .window {
+            background: #f4f4e6;
+            border: 3px solid #222;
+            border-radius: 12px 12px 8px 8px;
+            width: 900px;
+            max-width: 98vw;
+            margin: 40px auto 0 auto;
+            box-shadow: 8px 8px 0 #222;
+            position: relative;
+        }
+        .window-header {
+            background: #e0e0d1;
+            border-bottom: 2px solid #222;
+            border-radius: 10px 10px 0 0;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .window-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .window-controls {
+            display: flex;
+            gap: 0.4rem;
+        }
+        .window-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #222;
+            display: inline-block;
+        }
+        .window-dot.red { background: #ff5f56; }
+        .window-dot.yellow { background: #ffbd2e; }
+        .window-dot.green { background: #27c93f; }
+        /* Navbar */
+        nav {
+            background: #d6d6c2;
+            border-bottom: 2px solid #222;
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.3rem;
+        }
+        nav a, nav span {
+            color: #222;
+            text-decoration: none;
+            margin-right: 1.2rem;
+            transition: color 0.2s;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+        nav a:hover {
+            background: #b2b2a3;
+            color: #fff;
+        }
+        nav strong {
+            color: #4e7d4e;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+        }
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            padding: 2.5rem 2rem 2rem 2rem;
+            border-bottom: 2px solid #222;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-title {
+            font-size: 2.7rem;
+            color: #222;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        .hero-desc {
+            font-size: 1.4rem;
+            color: #4e7d4e;
+            margin-bottom: 2rem;
+        }
+        .hero-btn {
+            background: #222;
+            color: #fff;
+            border: 2px solid #222;
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            padding: 0.7rem 2.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 #4e7d4e;
+            transition: background 0.2s, color 0.2s, transform 0.1s;
+        }
+        .hero-btn:hover {
+            background: #4e7d4e;
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .hero-img {
+            width: 260px;
+            height: 200px;
+            object-fit: cover;
+            border: 2px solid #222;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 4px 4px 0 #4e7d4e;
+            image-rendering: pixelated;
+        }
+        @media (max-width: 900px) {
+            .window { width: 99vw; }
+            .hero { flex-direction: column; text-align: center; }
+            .hero-img { margin: 2rem 0 0 0; }
+        }
+        /* About Us Section */
+        .about-section {
+            background: #e0e0d1;
+            border-bottom: 2px solid #222;
+            padding: 2.5rem 1.5rem 2rem 1.5rem;
+            text-align: center;
+        }
+        .about-title {
+            font-size: 2rem;
+            color: #222;
+            margin-bottom: 1.2rem;
+            letter-spacing: 2px;
+        }
+        .about-desc {
+            font-size: 1.2rem;
+            color: #4e7d4e;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        /* Steps Section - Slack/Pixel Card Theme */
+        .steps-section {
+            background: #f4f4e6;
+            padding: 2.5rem 1rem 2.5rem 1rem;
+        }
+        .steps-title {
+            font-size: 2rem;
+            color: #222;
+            text-align: center;
+            margin-bottom: 2.2rem;
+            letter-spacing: 2px;
+        }
+        .steps-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.2rem;
+        }
+        .pixel-card {
+            background: #e0e0d1;
+            border: 2.5px solid #222;
+            border-radius: 18px 18px 32px 18px;
+            box-shadow: 4px 4px 0 #4e7d4e, 0 0 12px #b2b2a3;
+            width: 240px;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 1rem 1.2rem 1rem;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .pixel-card:hover {
+            transform: translateY(-6px) scale(1.03) rotate(-1deg);
+            box-shadow: 0 8px 0 #4e7d4e, 0 0 24px #b2b2a3;
+        }
+        .pixel-card .step-icon {
+            width: 50%;
+            height: 70%;
+            margin-bottom: 1.1rem;
+            image-rendering: pixelated;
+            border: 2px solid #222;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .pixel-card .step-title {
+            font-size: 1.1rem;
+            color: #222;
+            margin-bottom: 0.6rem;
+            letter-spacing: 1px;
+        }
+        .pixel-card .step-desc {
+            font-size: 1rem;
+            color: #4e7d4e;
+        }
+        /* Footer */
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 1.1rem 0 0.5rem 0;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            border-radius: 0 0 12px 12px;
+            border-top: 2px solid #4e7d4e;
+        }
+        .footer-dev {
+            color: #8fd694;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="window-header">
+            <div class="window-controls">
+                <span class="window-dot red"></span>
+                <span class="window-dot yellow"></span>
+                <span class="window-dot green"></span>
+            </div>
+            <div class="window-title">NutriScan</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <!-- Navbar -->
+        <nav>
+            <a href="{{ url_for('index') }}"><strong>NutriScan</strong></a>
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if session.get('user_id') %}
+                <a href="{{ url_for('analyze') }}">Analyze</a>
+                <a href="{{ url_for('profile') }}">Profile</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-title">NutriScan</div>
+                <div class="hero-desc">
+                    <span style="font-size:1.3em;">🍱</span> <b>AI-powered Product Health Analyzer</b><br>
+                    Scan, search, and analyze food products instantly.<br>
+                    <span style="color:#222;">Is your snack healthy? Let NutriScan's AI help you decide!</span>
+                </div>
+                {% if session.get('user_id') %}
+                    <a href="{{ url_for('analyze') }}"><button class="hero-btn">Analyze Now</button></a>
+                {% else %}
+                    <a href="{{ url_for('register') }}"><button class="hero-btn">Get Started</button></a>
+                {% endif %}
+            </div>
+            <!-- Slack/Pixel style hero image (replace src with your own pixel art if desired) -->
+            <img class="hero-img" src="{{ url_for('static', filename='assets/PixelArtFoodScanner.jpg') }}" alt="PixelArtFoodScanner" />
+        </section>
+
+        <!-- About Us Section -->
+        <section class="about-section">
+            <div class="about-title">About Us</div>
+            <div class="about-desc">
+                NutriScan is your friendly AI companion for making healthier food choices.<br>
+                Simply scan or search for any product, and our advanced AI will analyze its nutritional value, ingredients, and health impact.<br>
+                <span style="color:#4e7d4e;">Empowering you to eat smarter, one scan at a time!</span>
+            </div>
+        </section>
+
+        <!-- Steps Section -->
+        <section class="steps-section">
+            <div class="steps-title">How It Works</div>
+            <div class="steps-cards">
+                <!-- Step 1 -->
+                <div class="pixel-card">
+                    <img class="step-icon" src="{{ url_for('static', filename='assets/LoginPixelIcon.jpg') }}" alt="LoginPixelIcon" />
+                    <div class="step-title">1. Login / Register</div>
+                    <div class="step-desc">
+                        Create your account or log in to get started with NutriScan.
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="pixel-card">
+                    <img class="step-icon" src="{{ url_for('static', filename='assets/UploadPixelIcon.jpg') }}" alt="UploadPixelIcon" />
+                    <div class="step-title">2. Scan or Search</div>
+                    <div class="step-desc">
+                        Upload a product image or search by name to let our AI analyze it.
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="pixel-card">
+                    <img class="step-icon" src="{{ url_for('static', filename='assets/AnalyzePixelIcon.jpg') }}" alt="AnalyzePixelIcon" />
+                    <div class="step-title">3. Get Results</div>
+                    <div class="step-desc">
+                        Instantly receive a detailed health analysis and recommendations.
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="pixel-card">
+                    <img class="step-icon" src="{{ url_for('static', filename='assets/ProfilePixelIcon.jpg') }}" alt="ProfilePixelIcon" />
+                    <div class="step-title">4. Track & Improve</div>
+                    <div class="step-desc">
+                        Save your scans, track your choices, and improve your diet over time!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            NutriScan &copy; {{ 2024 }}<br>
+            <span class="footer-dev">Developed by Vishal Fukat</span>
+        </footer>
+    </div>
+</body>
+</html>

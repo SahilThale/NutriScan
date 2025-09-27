@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>NutriScan - Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #8fd694;
+            font-family: 'VT323', monospace;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        .window {
+            background: #f4f4e6;
+            border: 3px solid #222;
+            border-radius: 12px 12px 8px 8px;
+            width: 1100px;
+            max-width: 98vw;
+            margin: 40px auto 0 auto;
+            box-shadow: 8px 8px 0 #222;
+            position: relative;
+        }
+        .window-header {
+            background: #e0e0d1;
+            border-bottom: 2px solid #222;
+            border-radius: 10px 10px 0 0;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .window-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .window-controls {
+            display: flex;
+            gap: 0.4rem;
+        }
+        .window-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #222;
+            display: inline-block;
+        }
+        .window-dot.red { background: #ff5f56; }
+        .window-dot.yellow { background: #ffbd2e; }
+        .window-dot.green { background: #27c93f; }
+        nav {
+            background: #d6d6c2;
+            border-bottom: 2px solid #222;
+            padding: 0.7rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.3rem;
+            flex-wrap: wrap;
+        }
+        nav a, nav span {
+            color: #222;
+            text-decoration: none;
+            margin-right: 1.2rem;
+            transition: color 0.2s;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+        nav a:hover {
+            background: #b2b2a3;
+            color: #fff;
+        }
+        nav strong {
+            color: #4e7d4e;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+        }
+        .profile-section {
+            padding: 2.5rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-title {
+            font-size: 2.2rem;
+            color: #222;
+            margin-bottom: 1.2rem;
+            letter-spacing: 2px;
+        }
+        .profile-card {
+            background: #e0e0d1;
+            border: 2.5px solid #222;
+            border-radius: 18px 18px 32px 18px;
+            box-shadow: 4px 4px 0 #4e7d4e, 0 0 12px #b2b2a3;
+            width: 420px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 2rem 2rem 1.5rem 2rem;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .profile-label {
+            color: #4e7d4e;
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        .profile-value {
+            color: #222;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .profile-history-link {
+            display: inline-block;
+            margin-top: 1.2rem;
+            background: #222;
+            color: #fff;
+            border: 2px solid #222;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 #4e7d4e;
+            transition: background 0.2s, color 0.2s, transform 0.1s;
+            text-decoration: none;
+        }
+        .profile-history-link:hover {
+            background: #4e7d4e;
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+        @media (max-width: 1200px) {
+            .window { width: 99vw; }
+        }
+        @media (max-width: 700px) {
+            .profile-card { width: 98vw; }
+            .profile-section { padding: 1.2rem 0.5rem 1.2rem 0.5rem; }
+        }
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 1.1rem 0 0.5rem 0;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            border-radius: 0 0 12px 12px;
+            border-top: 2px solid #4e7d4e;
+        }
+        .footer-dev {
+            color: #8fd694;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="window-header">
+            <div class="window-controls">
+                <span class="window-dot red"></span>
+                <span class="window-dot yellow"></span>
+                <span class="window-dot green"></span>
+            </div>
+            <div class="window-title">NutriScan</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <!-- Navbar -->
+        <nav>
+            <a href="{{ url_for('index') }}"><strong>NutriScan</strong></a>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('analyze') }}">Analyze</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('history') }}">History</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+        <section class="profile-section">
+            <div class="profile-title">Your Profile</div>
+            {% if user %}
+                <div class="profile-card">
+                    <div class="profile-label">User ID:</div>
+                    <div class="profile-value">{{ user.id }}</div>
+                    <div class="profile-label">Name:</div>
+                    <div class="profile-value">{{ user.name }}</div>
+                    <div class="profile-label">Email:</div>
+                    <div class="profile-value">{{ user.email }}</div>
+                    <a class="profile-history-link" href="{{ url_for('history') }}">View Analysis History</a>
+                </div>
+            {% else %}
+                <div class="profile-card">
+                    <div class="profile-label">User details not found.</div>
+                </div>
+            {% endif %}
+        </section>
+        <footer>
+            NutriScan &copy; {{ 2024 }}<br>
+            <span class="footer-dev">Developed by Vishal Fukat</span>
+        </footer>
+    </div>
+</body>
+</html>
