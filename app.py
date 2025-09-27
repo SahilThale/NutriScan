@@ -34,7 +34,7 @@ def allowed_file(filename):
 
 def call_gemini(prompt, image_path=None):
     """Send query (and optional image) to Gemini API"""
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyDh1bDehR9jzy1wT-kkgAGQ9TlQUkXlE80")
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "Your Gemini Api Key")
     MODEL_NAME = "models/gemini-1.5-flash"
     GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/{MODEL_NAME}:generateContent?key={GEMINI_API_KEY}"
 
